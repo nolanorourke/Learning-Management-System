@@ -1,0 +1,15 @@
+this is to help the program talk to databses...?
+a helper is just the class
+start with one giant program.cs
+then we learn about different folders like models and services that allow us to break up the program
+helper is also used to alieviate and smoothen the program.cs file, they will all be linked
+
+piece that is tightly copupled to UI and loosely coupled to surface
+magae the lists in 
+signal to the service is not dependent on what type of environment i have (console, page, whatever)
+
+these helpers will take signals from button clicks and do the same things but we will replace the console stuff and place it somewhere else
+
+we wantto be able to go through tiny layers of an app and we can rebuild the tiny classes and replace them with maui versions, or whatever other versions. 
+
+it is all about abstraction

@@ -1,0 +1,4 @@
+/Users/nolanorourke/Desktop/CSharpTest/App.LearningManagement/obj/Debug/net8.0/App.LearningManagement.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nolanorourke/Desktop/CSharpTest/App.LearningManagement/obj/Debug/net8.0/App.LearningManagement.AssemblyInfoInputs.cache
+/Users/nolanorourke/Desktop/CSharpTest/App.LearningManagement/obj/Debug/net8.0/App.LearningManagement.AssemblyInfo.cs
+/Users/nolanorourke/Desktop/CSharpTest/App.LearningManagement/obj/Debug/net8.0/App.LearningManagement.csproj.CoreCompileInputs.cache
