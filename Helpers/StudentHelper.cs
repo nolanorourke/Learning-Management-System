@@ -181,7 +181,7 @@ namespace App.LearningManagement.Helpers
         }
         public void ListStudents()
         {
-            studentService.Students.ForEach(Console.WriteLine);
+            studentService.Students.Where(s => s is Student).ToList();
         }
 
         public void ListStudentCourses()
@@ -204,7 +204,17 @@ namespace App.LearningManagement.Helpers
             // courseService.Courses.Where(c => c.Roster.Any(s => s.Id == selectionInt)).ToList().ForEach(Console.WriteLine);
             NavigateStudents(query);
         }
+
+        public void GetGPA()
+        {
+            Console.WriteLine("Choose a student: ");
+            studentService.Students.Where(s => s is Student).ToList();
+            var selectedStudentId = int.Parse(Console.ReadLine() ?? "0");
+
+            Console.WriteLine($"GPA: {studentService.GetGPA(selectedStudentId)}");
+        }
     }
+
 }
 
 

@@ -44,6 +44,7 @@ namespace Library.LearningManagement.Models
 
         public List<Announcement> Announcements{get;set;}
 
+        public int CreditHours{get;set;}
         public Course()
         {
             Name = string.Empty;
@@ -55,6 +56,7 @@ namespace Library.LearningManagement.Models
             Announcements = new List<Announcement>();
             Prefix = string.Empty;
             Id = ++lastId;
+            CreditHours = 3;
         }
         // public Course(string? c, string? n, string? d, List<Person> r, List<Assignment> a, List<Module> m)
         // {

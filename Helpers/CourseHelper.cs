@@ -805,45 +805,12 @@ namespace App.LearningManagement.Helpers
                 selectedCourse.Roster.Where(r => r is Student).ToList().ForEach(Console.WriteLine);
                 var selectedStudentId = int.Parse(Console.ReadLine() ?? "0");
 
-                var weightedAverage = 0M;
-                foreach(var group in selectedCourse.AssignmentGroups)
-                {
-                    var submissions = selectedCourse.Submissions
-                        .Where(s => s.Student.Id == selectedStudentId
-                        && group.Assignments.Select(a => a.Id).Contains(s.Assignment.Id));
-                    if(submissions.Any())
-                    {
-                        weightedAverage += submissions.Select(s => s.Grade).Average() * group.Weight;
-                    }
-                }
-                Console.WriteLine($"Student Grade: ({GetLetterGrade(weightedAverage)}) {weightedAverage}");
+                var weightedAverage = courseService.GetWeightedGrade(selectedCourse.Id, selectedStudentId);
+
+                Console.WriteLine($"Student Grade: ({courseService.GetLetterGrade(weightedAverage)}) {weightedAverage}");
             }
         }
-        private string GetLetterGrade(decimal grade)
-        {
-            if(grade >= 93)
-                return "A";
-            else if(grade < 93 && grade >= 90)
-                return "A-";
-            else if(grade < 90 && grade >= 87)
-                return "B+";
-            else if(grade < 87 && grade >= 83)
-                return "B";
-            else if(grade < 83 && grade >= 80)
-                return "B-";
-            else if(grade < 80 && grade >= 77)
-                return "C+";
-            else if(grade < 77 && grade >= 73)
-                return "C";
-            else if(grade < 73 && grade >= 70)
-                return "C-";
-            else if(grade < 70 && grade >= 63)
-                return "D";
-            else if(grade < 63 && grade >= 60)
-                return "D-";
-            else
-                return "F";
-        }
+
     }
 
 }

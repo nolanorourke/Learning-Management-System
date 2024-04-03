@@ -58,6 +58,7 @@ namespace Nolanvas
             Console.WriteLine("D - Search for a person");
             Console.WriteLine("E - Remove a person");
             Console.WriteLine("F - List person's courses");
+            Console.WriteLine("G - Get a student's GPA ");
 
             var input = Console.ReadLine();
             if(char.TryParse(input, out char result))
@@ -92,6 +93,11 @@ namespace Nolanvas
                         case "f":
                         case "F":
                             stuhlpr.ListStudentCourses();
+                        break;
+
+                        case "g":
+                        case "G":
+                            stuhlpr.GetGPA();
                         break;
 
                         default:
