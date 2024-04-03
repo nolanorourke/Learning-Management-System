@@ -312,6 +312,45 @@ namespace App.LearningManagement.Helpers
             }
         }
 
+        public void AddSubmission()
+        {
+            Console.WriteLine("Enter the code for the course to add the assignment to: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+            var selection = Console.ReadLine();
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if(selectedCourse != null)
+            {
+                Console.WriteLine("Enter the id for the student: ");
+                selectedCourse.Roster.ForEach(Console.WriteLine);
+                var selectedStudentId = int.Parse(Console.ReadLine() ?? "0");
+                var selectedStudent = selectedCourse.Roster.FirstOrDefault(s => s.Id == selectedStudentId);
+                
+                Console.WriteLine("Enter the id for the assignment: ");
+                selectedCourse.Assignments.ToList().ForEach(Console.WriteLine);
+                var selectedAssignmentId = int.Parse(Console.ReadLine() ?? "0");
+                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(s => s.Id == selectedAssignmentId);
+
+                CreateSubmission(selectedCourse, selectedStudentId, selectedAssignmentId);
+
+
+            }
+        }
+
+        private void CreateSubmission(Course c, int studentId, int assignmentId)
+        {
+
+            Console.WriteLine("What is the content of the submission: ");
+            var content = Console.ReadLine();
+            c.Submissions.Add(new Submission{
+                StudentId = studentId,
+                AssignmentId = assignmentId,
+                Content = content
+            });
+
+        }
+
+
         private AssignmentItem CreateAssignmentItem(Course c)
         {
             Console.WriteLine("Name: ");

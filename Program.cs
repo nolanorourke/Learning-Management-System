@@ -119,6 +119,8 @@ namespace Nolanvas
             Console.WriteLine("N - Add an Announcement to a course");
             Console.WriteLine("O - Update an announcement for a course");
             Console.WriteLine("P - Remove an announcement from a course");
+            Console.WriteLine("Q - Create a student Submission");
+
 
             var input = Console.ReadLine();
             if(char.TryParse(input, out char result))
@@ -200,6 +202,10 @@ namespace Nolanvas
                         case "p":
                         case "P":
                             crshlpr.RemoveAnnouncement();
+                        break;
+                        case "q":
+                        case "Q":
+                            crshlpr.AddSubmission();
                         break;
 
                         default:

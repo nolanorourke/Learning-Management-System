@@ -36,6 +36,9 @@ namespace Library.LearningManagement.Models
                 return AssignmentGroups.SelectMany(ag => ag.Assignments);
             }
         }
+        public List<Submission> Submissions {get; set;} //made a list not an 
+        //ienumerable because ienumerable are read access only and we have to 
+        //change this eventually 
 
         public List<Module> Modules{get; set;}
 
@@ -47,6 +50,7 @@ namespace Library.LearningManagement.Models
             Description = string.Empty;
             Roster = new List<Person>();
             AssignmentGroups = new List<AssignmentGroup>();
+            Submissions = new List<Submission>();
             Modules = new List<Module>();
             Announcements = new List<Announcement>();
             Prefix = string.Empty;
