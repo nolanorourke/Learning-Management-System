@@ -13,14 +13,18 @@ namespace Library.LearningManagement.Models
         private int id = 0;
         public int Id {get; private set;}
 
-        public int StudentId {get; set;}//could make private but chose not to
-        public int AssignmentId{get; set;}
+        public Student Student {get; set;}//could make private but chose not to
+        public Assignment Assignment{get; set;}
 
         public string Content {get; set;}
         public Submission()
         {
             Id = ++lastId;
             Content = string.Empty;
+        }
+        public override string ToString()
+        {
+            return $"{Id} {Student.Name}:  {Assignment}";
         }
     }
 }
