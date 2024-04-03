@@ -116,7 +116,8 @@ namespace Nolanvas
             Console.WriteLine("K - Add a module to a course");
             Console.WriteLine("L - Update a module");
             Console.WriteLine("M - Remove a module from a course");
-            Console.WriteLine("N - Add an Announcement");
+            Console.WriteLine("N - Add an Announcement to a course");
+            Console.WriteLine("O - Remove an announcement from a course");
 
             var input = Console.ReadLine();
             if(char.TryParse(input, out char result))
@@ -191,9 +192,13 @@ namespace Nolanvas
                         case "N":
                             crshlpr.AddAnnouncement();
                         break;
+                        case "o":
+                        case "O":
+                            crshlpr.RemoveAnnouncement();
+                        break;
 
                         default:
-                            Console.WriteLine("Invalid input, try one of the letters A-N: ");
+                            Console.WriteLine("Invalid input, try one of the letters A-O: ");
                         break;
                 }
             }
