@@ -215,7 +215,7 @@ namespace App.LearningManagement.Helpers
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
             if(selectedCourse != null)
             {
-                selectedCourse.Assignments.Add(CreateAssignment());
+                CreateAssignmentWithGroup(selectedCourse);
             }
         }
 
@@ -249,15 +249,19 @@ namespace App.LearningManagement.Helpers
             if(selectedCourse != null)
             {
                 Console.WriteLine("Choose an assignment to update: ");
-                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                selectedCourse.Assignments.ToList().ForEach(Console.WriteLine);
                 var selectionStr = Console.ReadLine() ?? string.Empty;
                 var selectionInt = int.Parse(selectionStr);
-                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
-                if(selectedAssignment != null)
+                var selectedGroup = selectedCourse.AssignmentGroups.FirstOrDefault(ag => ag.Assignments.Any(a => a.Id == selectionInt));
+                if(selectedGroup != null)
                 {
-                    var index = selectedCourse.Assignments.IndexOf(selectedAssignment);
-                    selectedCourse.Assignments.RemoveAt(index);
-                    selectedCourse.Assignments.Insert(index, CreateAssignment());
+                    var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
+                    if(selectedAssignment != null)
+                    {
+                        var index = selectedGroup.Assignments.IndexOf(selectedAssignment);
+                        selectedGroup.Assignments.RemoveAt(index);
+                        selectedGroup.Assignments.Insert(index, CreateAssignment());
+                    }
                 }
             }
         }
@@ -271,7 +275,7 @@ namespace App.LearningManagement.Helpers
                 continueAdding = true;
                 while(continueAdding)
                 {
-                    c.Assignments.Add(CreateAssignment());
+                    CreateAssignmentWithGroup(c);
                     Console.WriteLine("Add more assignments? (Y/N):");
                     assignResponse = Console.ReadLine() ?? "N";
                     if(assignResponse.Equals("N", StringComparison.InvariantCultureIgnoreCase))
@@ -292,14 +296,18 @@ namespace App.LearningManagement.Helpers
             if(selectedCourse != null)
             {
                 Console.WriteLine("Choose an assignment to delete: ");
-                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                selectedCourse.Assignments.ToList().ForEach(Console.WriteLine);
                 var selectionStr = Console.ReadLine() ?? string.Empty;
                 var selectionInt = int.Parse(selectionStr);
-                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
-                if(selectedAssignment != null)
+                var selectedGroup = selectedCourse.AssignmentGroups.FirstOrDefault(ag => ag.Assignments.Any(a => a.Id == selectionInt));
+                if(selectedGroup != null)
                 {
-                    //var index = selectedCourse.Assignments.IndexOf(selectedAssignment);
-                    selectedCourse.Assignments.Remove(selectedAssignment);
+                    var selectedAssignment = selectedGroup.Assignments.FirstOrDefault(a => a.Id == selectionInt);
+                    if(selectedAssignment != null)
+                    {
+                        var index = selectedGroup.Assignments.Remove(selectedAssignment);
+                        //selectedCourse.Assignments.Remove(selectedAssignment);
+                    }
                 }
             }
         }
@@ -311,7 +319,7 @@ namespace App.LearningManagement.Helpers
             Console.WriteLine("Description: ");
             var description = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Which assignment should be added?");
-            c.Assignments.ForEach(Console.WriteLine);
+            c.Assignments.ToList().ForEach(Console.WriteLine);
             var choice = int.Parse(Console.ReadLine() ?? "-1");
             if (choice >= 0)
             {
@@ -591,7 +599,7 @@ namespace App.LearningManagement.Helpers
             if(selectedCourse != null)
             {
                 Console.WriteLine("Choose an announcement to update: ");
-                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                selectedCourse.Assignments.ToList().ForEach(Console.WriteLine);
                 var selectionStr = Console.ReadLine() ?? string.Empty;
                 var selectionInt = int.Parse(selectionStr);
                 var selectedAnnouncement = selectedCourse.Announcements.FirstOrDefault(a => a.Id == selectionInt);
@@ -623,6 +631,51 @@ namespace App.LearningManagement.Helpers
                 {
                     //var index = selectedCourse.Assignments.IndexOf(selectedAssignment);
                     selectedCourse.Announcements.Remove(selectedAnnouncement);
+                }
+            }
+        }
+
+        //public void addAssignmentGroup
+
+        private void CreateAssignmentWithGroup(Course selectedCourse)
+        {
+            if(selectedCourse.AssignmentGroups.Any())
+            {
+                Console.WriteLine("0 - Add a new group");
+                selectedCourse.AssignmentGroups.ForEach(Console.WriteLine);
+
+                var selectionStr = Console.ReadLine() ?? string.Empty;
+                var selectionInt = int.Parse(selectionStr);
+
+                if(selectionInt == 0)
+                {
+                    var newGroup = new AssignmentGroup();
+                    Console.WriteLine("Group Name: ");
+                    newGroup.Name = Console.ReadLine() ?? string.Empty;
+
+                    Console.WriteLine("Group Weight: ");
+                    newGroup.Weight = decimal.Parse(Console.ReadLine() ?? "1");
+
+                    newGroup.Assignments.Add(CreateAssignment());
+                    selectedCourse.AssignmentGroups.Add(newGroup);
+                }
+                else if(selectionInt != 0)
+                {
+                    var selectedGroup = selectedCourse.AssignmentGroups.FirstOrDefault(ag => ag.Id == selectionInt);
+                    if(selectedGroup != null)
+                        selectedGroup.Assignments.Add(CreateAssignment());
+                }
+                else
+                {
+                    var newGroup = new AssignmentGroup();
+                    Console.WriteLine("Group Name: ");
+                    newGroup.Name = Console.ReadLine() ?? string.Empty;
+
+                    Console.WriteLine("Group Weight: ");
+                    newGroup.Weight = decimal.Parse(Console.ReadLine() ?? "1");
+
+                    newGroup.Assignments.Add(CreateAssignment());
+                    selectedCourse.AssignmentGroups.Add(newGroup);
                 }
             }
         }
