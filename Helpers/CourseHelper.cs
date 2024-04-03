@@ -382,7 +382,26 @@ namespace App.LearningManagement.Helpers
                 //selectedCourse.Submissions.FirstOrDefault(s => s.Student.Id == selectedStuId).Content = Console.ReadLine() ?? string.Empty;
                     // want to change so taht they can look up by student and assignmetn ID like he said in video
                 selectedCourse.Submissions.FirstOrDefault(s => s.Student.Id == selectedId).Content = Console.ReadLine() ?? string.Empty;
+            }
+        }
 
+        public void GradeSubmission()
+        {
+                        ListSubmissions();
+            Console.WriteLine("Enter the code for the course to add the assignment to: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+            var selection = Console.ReadLine();
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if(selectedCourse != null)
+            {
+
+
+                selectedCourse.Submissions.ForEach(Console.WriteLine);
+                var selectedId = int.Parse(Console.ReadLine() ?? "0");
+
+                Console.WriteLine("Enter grade: ");
+                selectedCourse.Submissions.FirstOrDefault(s => s.Student.Id == selectedId).Grade = decimal.Parse(Console.ReadLine() ?? "0.0");
             }
         }
         public void RemoveSubmission()

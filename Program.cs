@@ -122,7 +122,8 @@ namespace Nolanvas
             Console.WriteLine("Q - Create a student's submission");
             Console.WriteLine("R - List all submissions for a course");
             Console.WriteLine("S - Update a student's submission");
-            Console.WriteLine("T - Remove a student's submission");
+            Console.WriteLine("T - Grade a student's submission");
+            Console.WriteLine("U - Remove a student's submission");
 
             var input = Console.ReadLine();
             if(char.TryParse(input, out char result))
@@ -189,41 +190,54 @@ namespace Nolanvas
                         case "L":
                             crshlpr.UpdateModule();
                         break;
+
                         case "m":
                         case "M":
                             crshlpr.RemoveModule();
                         break;
+
                         case "n":
                         case "N":
                             crshlpr.AddAnnouncement();
                         break;
+
                         case "o":
                         case "O":
                             crshlpr.UpdateAnnouncement();
                         break;
+
                         case "p":
                         case "P":
                             crshlpr.RemoveAnnouncement();
                         break;
+
                         case "q":
                         case "Q":
                             crshlpr.AddSubmission();
                         break;
+
                         case "r":
                         case "R":
                             crshlpr.ListSubmissions();
                         break;
+
                         case "s":
                         case "S":
                             crshlpr.UpdateSubmission();
                         break;
+
                         case "t":
                         case "T":
+                            crshlpr.GradeSubmission();
+                        break;
+
+                        case "u":
+                        case "U":
                             crshlpr.RemoveSubmission();
                         break;
 
                         default:
-                            Console.WriteLine("Invalid input, try one of the letters A-O: ");
+                            Console.WriteLine("Invalid input, try one of the letters A-U: ");
                         break;
                 }
             }
