@@ -215,11 +215,11 @@ namespace Nolanvas
                         break;
                         case "s":
                         case "S":
-                            crshlpr.AddSubmission();
+                            crshlpr.UpdateSubmission();
                         break;
                         case "t":
                         case "T":
-                            crshlpr.AddSubmission();
+                            crshlpr.RemoveSubmission();
                         break;
 
                         default:
