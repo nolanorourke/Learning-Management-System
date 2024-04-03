@@ -361,7 +361,29 @@ namespace App.LearningManagement.Helpers
         }
         public void UpdateSubmission()
         {
+            ListSubmissions();
+            Console.WriteLine("Enter the code for the course to add the assignment to: ");
+            courseService.Courses.ForEach(Console.WriteLine);
+            var selection = Console.ReadLine();
 
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if(selectedCourse != null)
+            {
+                // Console.WriteLine("Enter the assignment's ID: ");
+                // //selectedCourse.Submissions.ForEach(Console.WriteLine);
+                // var selectedAssId = int.Parse(Console.ReadLine() ?? "0");
+                // Console.WriteLine("Enter the student's ID: ");
+                // var selectedStuId = int.Parse(Console.ReadLine() ?? "0");
+
+                selectedCourse.Submissions.ForEach(Console.WriteLine);
+                var selectedId = int.Parse(Console.ReadLine() ?? "0");
+
+                Console.WriteLine("Enter new content: ");
+                //selectedCourse.Submissions.FirstOrDefault(s => s.Student.Id == selectedStuId).Content = Console.ReadLine() ?? string.Empty;
+                    // want to change so taht they can look up by student and assignmetn ID like he said in video
+                selectedCourse.Submissions.FirstOrDefault(s => s.Student.Id == selectedId).Content = Console.ReadLine() ?? string.Empty;
+
+            }
         }
         public void RemoveSubmission()
         {
